@@ -30,6 +30,7 @@ async function run() {
     app.get('/craft',async(req,res)=>{
       const cursor = craftCollection.find();
       const result = await cursor.toArray();
+      res.send(result)
     })
     app.post('/craft',async(req, res)=>{
       const infoCraft=req.body;
