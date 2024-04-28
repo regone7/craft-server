@@ -39,14 +39,28 @@ async function run() {
       const result = await cursor;
       res.send(result)
     })
-    app.get('/craft/:email',async(req,res)=>{
-      const result=await craftCollection.find({email:req.params.email}).toArray()
+    app.get('/crafts/:email',async(req,res)=>{
+      // console.log(req.params.email)
+      const result = await craftCollection.find({email:req.params.email}).toArray();
+      res.send(result)
+    })
+    app.get('/craftss/:id',async(req,res)=>{
+      const id=req.params.id;
+      const quary = {_id:new ObjectId(id)}
+      const cursor = craftCollection.findOne(quary);
+      const result = await cursor;
       res.send(result)
     })
     app.post('/craft',async(req, res)=>{
       const infoCraft=req.body;
       console.log(infoCraft)
       const result = await craftCollection.insertOne(infoCraft);
+      res.send(result)
+    })
+    app.delete('/delete/:id',async(req,res)=>{
+      const id= req.params.id;
+      const quary = {_id:new ObjectId(id)}
+      const result = await craftCollection.deleteOne(quary)
       res.send(result)
     })
 
