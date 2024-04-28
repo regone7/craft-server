@@ -35,7 +35,7 @@ async function run() {
     app.get('/craft/:id',async(req,res)=>{
       const id=req.params.id;
       const quary = {_id:new ObjectId(id)}
-      const cursor = craftCollection.findOne(quary,id);
+      const cursor = craftCollection.findOne(quary);
       const result = await cursor;
       res.send(result)
     })
@@ -46,6 +46,7 @@ async function run() {
     })
     app.get('/craftss/:id',async(req,res)=>{
       const id=req.params.id;
+      console.log(id)
       const quary = {_id:new ObjectId(id)}
       const cursor = craftCollection.findOne(quary);
       const result = await cursor;
