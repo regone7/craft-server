@@ -1,7 +1,7 @@
 const express = require('express');
 var cors = require('cors');
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000
 
@@ -30,6 +30,13 @@ async function run() {
     app.get('/craft',async(req,res)=>{
       const cursor = craftCollection.find();
       const result = await cursor.toArray();
+      res.send(result)
+    })
+    app.get('/craft/:id',async(req,res)=>{
+      const id=req.params.id;
+      const quary = {_id:new ObjectId(id)}
+      const cursor = craftCollection.findOne(quary,id);
+      const result = await cursor;
       res.send(result)
     })
     app.post('/craft',async(req, res)=>{
