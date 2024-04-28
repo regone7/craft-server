@@ -39,6 +39,10 @@ async function run() {
       const result = await cursor;
       res.send(result)
     })
+    app.get('/craft/:email',async(req,res)=>{
+      const result=await craftCollection.find({email:req.params.email}).toArray()
+      res.send(result)
+    })
     app.post('/craft',async(req, res)=>{
       const infoCraft=req.body;
       console.log(infoCraft)
