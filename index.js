@@ -46,7 +46,7 @@ async function run() {
     })
     app.get('/craftss/:id',async(req,res)=>{
       const id=req.params.id;
-      console.log(id)
+      // console.log(id)
       const quary = {_id:new ObjectId(id)}
       const cursor = craftCollection.findOne(quary);
       const result = await cursor;
@@ -54,29 +54,31 @@ async function run() {
     })
     app.post('/craft',async(req, res)=>{
       const infoCraft=req.body;
-      console.log(infoCraft)
+      // console.log(infoCraft)
       const result = await craftCollection.insertOne(infoCraft);
       res.send(result)
     })
-    app.put('/updates/:id',async(req,res)=>{
+    app.put('/updatesinfo/:id',async(req,res)=>{
       const id=req.params.id;
       console.log(id)
       const quary = {_id:new ObjectId(id)}
-      const data ={
+      // const options = { upsert: true };
+      const data= req.body;
+      const updata ={
         $set:{
-          item_name:req.body.item_name,
-          subcategory_Name:req.body.subcategory_Name,
-          short_description:req.body.short_description,
-          photoURL:req.body.photoURL,
-          price:req.body.price,
-          rating:req.body.rating,
-          customization:req.body.customization,
-          processing_time:req.body.processing_timee,
-          srock_status:req.body.srock_status
+          item_name:data.item_name,
+          subcategory_Name:data.subcategory_Name,
+          short_description:data.short_description,
+          photoURL:data.photoURL,
+          price:data.price,
+          rating:data.rating,
+          customization:data.customization,
+          processing_time:data.processing_timee,
+          srock_status:data.srock_status
 
         }
       }
-      const result= await craftCollection.updateOne(quary,data)
+      const result= await craftCollection.updateOne(quary,updata)
       console.log(result)
       res.send(result)
     })
