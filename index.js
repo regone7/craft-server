@@ -62,7 +62,7 @@ async function run() {
       const id=req.params.id;
       console.log(id)
       const quary = {_id:new ObjectId(id)}
-      // const options = { upsert: true };
+      const options = { upsert: true };
       const data= req.body;
       const updata ={
         $set:{
@@ -78,7 +78,7 @@ async function run() {
 
         }
       }
-      const result= await craftCollection.updateOne(quary,updata)
+      const result= await craftCollection.updateOne(quary,updata,options)
       console.log(result)
       res.send(result)
     })
