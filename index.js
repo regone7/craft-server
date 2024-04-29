@@ -26,6 +26,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const craftCollection = client.db("craftDB").collection("craft");
+    // const newCollection = client.db("craftDB").collection("categories");
 
     app.get('/craft',async(req,res)=>{
       const cursor = craftCollection.find();
@@ -88,6 +89,11 @@ async function run() {
       const result = await craftCollection.deleteOne(quary)
       res.send(result)
     })
+    // app.get('/categories',async(req,res)=>{
+    //   const cursor = newCollection.find();
+    //   const result = await cursor.toArray();
+    //   res.send(result)
+    // })
 
 
     // Send a ping to confirm a successful connection
