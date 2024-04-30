@@ -26,13 +26,14 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const craftCollection = client.db("craftDB").collection("craft");
-    // const newCollection = client.db("craftDB").collection("categories");
-
+    const newCollection = client.db("craftDB").collection("categories");
+    // data show
     app.get('/craft',async(req,res)=>{
       const cursor = craftCollection.find();
       const result = await cursor.toArray();
       res.send(result)
     })
+    // ditels
     app.get('/craft/:id',async(req,res)=>{
       const id=req.params.id;
       const quary = {_id:new ObjectId(id)}
@@ -40,11 +41,13 @@ async function run() {
       const result = await cursor;
       res.send(result)
     })
+    // only email listed data
     app.get('/crafts/:email',async(req,res)=>{
       // console.log(req.params.email)
       const result = await craftCollection.find({email:req.params.email}).toArray();
       res.send(result)
     })
+    // update data
     app.get('/craftss/:id',async(req,res)=>{
       const id=req.params.id;
       // console.log(id)
@@ -59,6 +62,7 @@ async function run() {
       const result = await craftCollection.insertOne(infoCraft);
       res.send(result)
     })
+    // updated data
     app.put('/updatesinfo/:id',async(req,res)=>{
       const id=req.params.id;
       console.log(id)
@@ -89,11 +93,17 @@ async function run() {
       const result = await craftCollection.deleteOne(quary)
       res.send(result)
     })
-    // app.get('/categories',async(req,res)=>{
-    //   const cursor = newCollection.find();
-    //   const result = await cursor.toArray();
-    //   res.send(result)
-    // })
+    app.get('/categories',async(req,res)=>{
+      const cursor = newCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    })
+
+    app.get('/categoriess/:subcategory_Names',async(req,res)=>{
+      // console.log(req.params.email)
+      const result = await craftCollection.find({subcategory_Name:req.params.subcategory_Names}).toArray();
+      res.send(result)
+    })
 
 
     // Send a ping to confirm a successful connection
